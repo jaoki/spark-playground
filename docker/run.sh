@@ -4,7 +4,7 @@ set -e -x -u
 
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-export IMAGE_NAME="jaoki/spark"
+export IMAGE_NAME="jaoki/spark-playground"
 
 pushd ${SCRIPT_DIR}
 
@@ -24,9 +24,9 @@ fi
 
 docker build -t "${IMAGE_NAME}-${USER_NAME}" - <<UserSpecificDocker
 FROM ${IMAGE_NAME}
-RUN groupadd --non-unique -g ${GROUP_ID} ${USER_NAME}
-RUN useradd -g ${GROUP_ID} -u ${USER_ID} -k /root -m ${USER_NAME}
-ENV HOME /home/${USER_NAME}
+RUN groupadd --non-unique -g ${GROUP_ID} ${USER_NAME} && \
+  useradd -g ${GROUP_ID} -u ${USER_ID} -k /root -m ${USER_NAME}
+ENV  HOME /home/${USER_NAME}
 UserSpecificDocker
 
 ROOT_DIR=${SCRIPT_DIR}/..
