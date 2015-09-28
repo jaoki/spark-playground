@@ -21,9 +21,9 @@ RUN wget --no-cookies --no-check-certificate http://www.scala-lang.org/files/arc
 # spark
 RUN cd /usr/local/lib && wget --no-cookies --no-check-certificate http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz && \
 	cd /usr/local/lib && tar -xvf spark-1.4.1-bin-hadoop2.6.tgz && \
-	cd /usr/local/lib && rm spark-1.4.1-bin-hadoop2.6.tgz && \
-	cp $SPARK_HOME/conf/log4j.properties.template $SPARK_HOME/conf/log4j.properties && \
-	sed -i 's/log4j.rootCategory=INFO, console/log4j.rootCategory=WARN, console/' $SPARK_HOME/conf/log4j.properties
+	cd /usr/local/lib && rm spark-1.4.1-bin-hadoop2.6.tgz
+	# cp $SPARK_HOME/conf/log4j.properties.template $SPARK_HOME/conf/log4j.properties && \
+	# sed -i 's/log4j.rootCategory=INFO, console/log4j.rootCategory=WARN, console/' $SPARK_HOME/conf/log4j.properties
 
 ENV PATH $PATH:$SPARK_HOME/bin
 

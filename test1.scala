@@ -5,50 +5,56 @@ var readmeMdFile = sc.textFile(sparkHome + "/README.md")
 readmeMdFile.count()
 readmeMdFile.first()
 
-def filterTest() : Unit = {
-	println("====================")
-	readmeMdFile.filter(line => line.toLowerCase().contains("spark")).foreach(println)
-	println("====================")
-}
+@SerialVersionUID(15L)
+class Test extends Serializable{
 
-def max(a:Int, b:Int) : Int = {
-	if (a > b){
-		a
-	}else{
-		b
+
+	def filterTest() : Unit = {
+		println("====================")
+		readmeMdFile.filter(line => line.toLowerCase().contains("spark")).foreach(println)
+		println("====================")
 	}
-}
 
-def mapTest() : Unit = {
-	println("====================")
-	println(readmeMdFile.map(line => line.split(" ").size).reduce(max))
-	println("====================")
-}
-
-def properlySplit(line: String) : Array[String] = {
-	var delimiters:Array[String] = Array(" ", "\"", ".", ",")
-	for(d <- delimiters){
-		if(line.contains(d)){
-			return line.split(d).flatMap(properlySplit)
+	def max(a:Int, b:Int) : Int = {
+		if (a > b){
+			a
+		}else{
+			b
 		}
 	}
-	Array(line)
+
+	def mapTest() : Unit = {
+		println("====================")
+		println(readmeMdFile.map(line => line.split(" ").size).reduce(max))
+		println("====================")
+	}
+
+	def properlySplit(line: String) : Array[String] = {
+		var delimiters:Array[String] = Array(" ", "\"", ".", ",", "\\[", "]", "\\(", ")", "=", "-", "<", ">", "#", ":", "`")
+		for(d <- delimiters){
+			if(line.contains(d)){
+				return line.split(d).flatMap(properlySplit)
+			}
+		}
+		Array(line)
+	}
+
+	def wordCount() : RDD[(String, Int)] = {
+		// var allWords = readmeMdFile.flatMap(line => line.split(" ")).map(a => a.st)
+		var allWords = readmeMdFile.flatMap(properlySplit)
+		var wordPairs = allWords.map(word => (word.toLowerCase(), 1))
+		var countsUnsorted = wordPairs.reduceByKey((a:Int, b:Int) => a+b)
+		// countsUnsorted.sortByKey(false)
+		countsUnsorted.sortBy(_._1)
+	}
 }
 
-def wordCount() : RDD[(String, Int)] = {
-	// var allWords = readmeMdFile.flatMap(line => line.split(" ")).map(a => a.st)
-	var allWords = readmeMdFile.flatMap(properlySplit)
-	var wordPairs = allWords.map(word => (word, 1))
-	var countsUnsorted = wordPairs.reduceByKey((a:Int, b:Int) => a+b)
-	// countsUnsorted.sortByKey(false)
-	countsUnsorted.sortBy(_._2)
-}
 
 // filterTest()
 // mapTest()
 // max(1, 2)
 println("word count result ==================")
-var wordCounts = wordCount()
+var wordCounts:RDD[(String, Int)] = new Test().wordCount()
 wordCounts.foreach(println)
 wordCounts.count()
 
