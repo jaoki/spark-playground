@@ -7,8 +7,7 @@ readmeMdFile.first()
 
 @SerialVersionUID(15L)
 class Test extends Serializable{
-
-
+  
 	def filterTest() : Unit = {
 		println("====================")
 		readmeMdFile.filter(line => line.toLowerCase().contains("spark")).foreach(println)
@@ -27,7 +26,10 @@ class Test extends Serializable{
 		println("====================")
 		println(readmeMdFile.map(line => line.split(" ").size).reduce(max))
 		println("====================")
+
 	}
+	
+
 
 	def properlySplit(line: String) : Array[String] = {
 		var delimiters:Array[String] = Array(" ", "\"", ".", ",", "\\[", "]", "\\(", ")", "=", "-", "<", ">", "#", ":", "`")
