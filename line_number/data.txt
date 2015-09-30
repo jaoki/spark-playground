@@ -1,0 +1,8 @@
+How To Use Rsync to Sync Local and Remote Directories on a VPS
+Sep 10, 2013  Linux Basics, Backups
+Introduction
+
+Rsync, which stands for "remote sync", is a remote and local file synchronization tool. It uses an algorithm that minimizes the amount of data copied by only moving the portions of files that have changed.
+
+In this guide, we will cover the basic usage of this powerful utility. We will be using an Ubuntu 12.04 VPS in the examples, but you can use any modern Linux distribution to follow along.
+
