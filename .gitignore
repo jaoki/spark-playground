@@ -4,3 +4,5 @@ derby.log
 .project
 
 /bin/
+.cache-main
+

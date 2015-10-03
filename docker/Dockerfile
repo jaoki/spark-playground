@@ -18,6 +18,10 @@ RUN wget --no-cookies --no-check-certificate http://www.scala-lang.org/files/arc
 	yum install -y scala-2.11.7.rpm && \
 	rm scala-2.11.7.rpm
 
+# sbt
+RUN curl https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo && \
+	yum install -y sbt
+
 # spark
 RUN cd /usr/local/lib && wget --no-cookies --no-check-certificate http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz && \
 	cd /usr/local/lib && tar -xvf spark-1.4.1-bin-hadoop2.6.tgz && \
