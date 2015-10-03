@@ -1,9 +1,10 @@
-
+import scala.
 object Test1 extends java.io.Serializable{
   case class Data1(date: String, uid: String, count: Int)
   case class Data2(date: String, uid: String, count: Int, a: Float, b:Float)
 
   def main(args: Array[String]){
+    var a = Data1("", "", 1)
 
     var data1 = sc.textFile("join_example/data1.tsv").map(_.split("\t"))
     var data2 = sc.textFile("join_example/data2.tsv").map(_.split("\t"))
