@@ -20,7 +20,8 @@ RUN wget --no-cookies --no-check-certificate http://www.scala-lang.org/files/arc
 
 # sbt
 RUN curl https://bintray.com/sbt/rpm/rpm | tee /etc/yum.repos.d/bintray-sbt-rpm.repo && \
-	yum install -y sbt
+	yum install -y sbt && \
+	sbt run -v
 
 # spark
 RUN cd /usr/local/lib && wget --no-cookies --no-check-certificate http://d3kbcqa49mib13.cloudfront.net/spark-1.4.1-bin-hadoop2.6.tgz && \
