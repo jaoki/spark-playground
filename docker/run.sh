@@ -29,15 +29,16 @@ RUN groupadd --non-unique -g ${GROUP_ID} ${USER_NAME} && \
 ENV  HOME /home/${USER_NAME}
 UserSpecificDocker
 
-ROOT_DIR=${SCRIPT_DIR}/..
+PROJECT_ROOT=${SCRIPT_DIR}/..
 
-pushd ${ROOT_DIR}
+pushd ${PROJECT_ROOT}
 
 docker run -i -t \
   --rm=true \
-  -w ${ROOT_DIR} \
+  -w ${PROJECT_ROOT} \
   -u "${USER}" \
-  -v "${ROOT_DIR}:${ROOT_DIR}" \
+  -v "${PROJECT_ROOT}:${PROJECT_ROOT}" \
+  -v "/home/${USER_NAME}:/home/${USER_NAME}" \
   ${IMAGE_NAME}-${USER_NAME} \
   bash
 

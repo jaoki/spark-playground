@@ -2,6 +2,7 @@
 derby.log
 .classpath
 .project
+.settings
 
 /bin/
 .cache-main
